@@ -19,9 +19,10 @@ jobs:
     - name: Load image into Minikube
       run: minikube image load  micro-ms-pedidos:latest
 
+
     - name: Update Helm tag
       run: |
-        sed -i "s/tag:.*/tag: ${{ github.run_number }}/" helm-ms/values.yaml
+        (Get-Content helm-ms/values.yaml) -replace 'tag:.*', 'tag: ${{ github.run_number }}' | Set-Content helm-ms/values.yaml
 
     - name: Commit changes
       run: |
