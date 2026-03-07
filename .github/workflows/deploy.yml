@@ -14,11 +14,11 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Build Docker image
-      run: docker build -t micro-ms-pedidos:latest msPedidos
+      run: docker build -t micro-ms-pedidos:${{ github.run_number }} msPedidos
 
     - name: Load image into Minikube
       run: minikube image load  micro-ms-pedidos:latest
 
     - name: Deploy with Helm
       run: |
-           helm upgrade --install micro-ms-pedidos ./helm-ms --set image.tag=latest
+           helm upgrade --install micro-ms-pedidos ./helm-ms --set image.tag=${{ github.run_number }}
