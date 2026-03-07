@@ -1,0 +1,25 @@
+name: build-and-deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t  micro-ms-pedidos:latest -f msPedidos .
+
+    - name: Load image into Minikube
+      run: minikube image load  micro-ms-pedidos:latest
+
+    - name: Deploy with Helm
+      run: |
+          helm upgrade --install helm upgrade micro-ms-pedidos ./helm-ms
+            --set image.tag=latest
