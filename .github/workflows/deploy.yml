@@ -19,6 +19,18 @@ jobs:
     - name: Load image into Minikube
       run: minikube image load  micro-ms-pedidos:latest
 
+    - name: Update Helm tag
+      run: |
+        sed -i "s/tag:.*/tag: ${{ github.run_number }}/" helm-ms/values.yaml
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "actions@github.com"
+        git add helm-ms/values.yaml
+        git commit -m "Se actualiza tag de imagen a ${{ github.run_number }}"
+        git push
+
     - name: Deploy with Helm
       run: |
            helm upgrade --install micro-ms-pedidos ./helm-ms --set image.tag=${{ github.run_number }}
