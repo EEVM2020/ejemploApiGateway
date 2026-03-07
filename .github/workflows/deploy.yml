@@ -21,5 +21,4 @@ jobs:
 
     - name: Deploy with Helm
       run: |
-          helm upgrade --install helm upgrade micro-ms-pedidos ./helm-ms
-            --set image.tag=latest
+          helm upgrade --install helm upgrade micro-ms-pedidos ./helm-ms --set image.tag=latest
