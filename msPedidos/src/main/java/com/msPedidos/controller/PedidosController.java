@@ -32,6 +32,8 @@ public class PedidosController {
 		pedidos.add(pedido);
 		pedido= new PedidoDto(5L,"Cuaderno",2);
 		pedidos.add(pedido);
+		pedido= new PedidoDto(6L,"Pc",34);
+		pedidos.add(pedido);
 		Map<String, Object> response= new HashMap<>();
 		response.put("pedidos", pedidos);
 		
